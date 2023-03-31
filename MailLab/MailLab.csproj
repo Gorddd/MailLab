@@ -7,4 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="RetroUI">
+      <HintPath>..\RetroUI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
