@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MailLab" Height="450" Width="800" MinWidth="668">
     <Window.Resources>
-        
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="File">
-                <MenuItem Header="New email"></MenuItem>
+                <MenuItem Header="New email" Click="NewEmail_Click"></MenuItem>
                 <MenuItem Header="Close all"></MenuItem>
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
@@ -31,8 +31,8 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        
-        
+
+
         <Grid Grid.Row="1" Background="AliceBlue">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="150" Width="0.35*"></ColumnDefinition>
@@ -46,7 +46,7 @@
             <TabControl Grid.Column="0">
                 <TabItem Header="Received" Grid.Column="0">
                     <ListBox Background="White">
-                        
+
                     </ListBox>
                 </TabItem>
                 <TabItem Header="Sent" Grid.Column="1">
@@ -57,31 +57,33 @@
             </TabControl>
 
             <!--right tabs-->
-            <TabControl Grid.Column="2">
-                <Grid Name="mailTabContent">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="54"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="0.25*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <TextBox>from:</TextBox>
-                            <TextBox>to:</TextBox>
-                            <TextBox></TextBox>
-                        </StackPanel>
-                        <!--send button (visible only if mail content is a new email)-->
-                        <Button Name="sendButton" Grid.Column="1" Margin="4" Background="LightBlue" retroUi:Alt.Background="DarkCyan" Visibility="Visible" Content="Send"/>
+            <TabControl Name="mailTabs" Grid.Column="2">
+                <TabItem Name="firstTab" Visibility="Hidden">
+                    <Grid Visibility="Hidden">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="57"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBox>from:</TextBox>
+                                <TextBox>to:</TextBox>
+                                <TextBox Margin="0 3 0 0"></TextBox>
+                            </StackPanel>
+                            <!--send button (visible only if mail content is a new email)-->
+                            <Button Name="sendButton" Grid.Column="1" Margin="4" Background="LightBlue" retroUi:Alt.Background="DarkCyan" Visibility="Visible" Content="Send"/>
+                        </Grid>
+
+                        <!--mail content-->
+                        <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+
+                        </TextBox>
                     </Grid>
-
-                    <!--mail content-->
-                    <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
-
-                    </TextBox>
-                </Grid>
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>

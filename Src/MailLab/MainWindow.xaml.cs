@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailLab.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace MailLab
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void NewEmail_Click(object sender, RoutedEventArgs e)
+        {
+            var newMailTab = new MailTab((TabItem)new MailTab(firstTab).Clone());
+            newMailTab.TabItem.Header = "New Email";
+            newMailTab.MakeVisible();
+
+            mailTabs.Items.Add(newMailTab.TabItem);
         }
     }
 }
