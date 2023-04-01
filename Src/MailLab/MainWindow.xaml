@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:retroUi="clr-namespace:RetroUI;assembly=RetroUI"
-        xmlns:local="clr-namespace:MailLab"
+        xmlns:local="clr-namespace:MailLab" xmlns:elements="clr-namespace:MailLab.Elements"
         mc:Ignorable="d"
         Title="MailLab" Height="450" Width="800" MinWidth="668">
     <Window.Resources>
@@ -59,7 +59,9 @@
             <TabControl Name="mailTabs" Grid.Column="2">
                 <TabItem Name="firstTab">
                     <TabItem.ContextMenu>
-                        <ContextMenu>Close</ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Close" Click="CloseSpecificTab_Click"></MenuItem>
+                        </ContextMenu>
                     </TabItem.ContextMenu>
                     <Grid>
                         <Grid.RowDefinitions>

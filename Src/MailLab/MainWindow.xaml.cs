@@ -1,4 +1,5 @@
 ﻿using MailLab.Elements;
+using MailLab.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,35 +23,34 @@ namespace MailLab
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MailTab OriginalMailTab;
+        private TabHelper<MailTab> mailTabsHelper;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            OriginalMailTab = GetOriginalMailtab();
+            mailTabsHelper = new(mailTabs, new MailTab((TabItem)mailTabs.Items[0]));
         }
-
-        private MailTab GetOriginalMailtab()
-        {
-            var tab = firstTab;
-            CloseTabs();
-            return new MailTab(tab);
-        }
-
-        private void CloseTabs() => mailTabs.Items.Clear();
 
         private void NewEmail_Click(object sender, RoutedEventArgs e)
         {
-            var newMailTab = new MailTab((TabItem)OriginalMailTab.Clone());
-            newMailTab.TabItem.Header = "New Email";
-
-            mailTabs.Items.Add(newMailTab.TabItem);
+            mailTabsHelper.MakeNewTab(tab =>
+            {
+                tab.TabItem.Header = $"{mailTabsHelper.CreatedTabsNum} New Email";
+                tab.CloseTabMenuItem.Click += CloseSpecificTab_Click;
+            });
         }
 
         private void CloseAll_Click(object sender, RoutedEventArgs e)
         {
-            CloseTabs();
+            mailTabsHelper.CloseTabs();
+        }
+
+        private void CloseSpecificTab_Click(object sender, RoutedEventArgs e)
+        {
+            var tabHeader = ((TabItem)((ContextMenu)((MenuItem)e.Source).Parent).PlacementTarget).Header.ToString();
+            if (tabHeader != null)
+                mailTabsHelper.CloseSpecificTab(tabHeader);
         }
     }
 }

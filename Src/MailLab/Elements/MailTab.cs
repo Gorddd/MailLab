@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailLab.Elements.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,32 +11,35 @@ using System.Xml;
 
 namespace MailLab.Elements
 {
-    class MailTab : TabItem, ICloneable
+    internal class MailTab : ICloneable, ITab
     {
-        public TabItem TabItem { get; private set; }
+        public TabItem TabItem { get; }
 
         public MailTab(TabItem tabItem)
         {
             TabItem = tabItem;
         }
 
+        public MenuItem CloseTabMenuItem =>
+            GetElement(tabItem => (MenuItem)tabItem.ContextMenu.Items[0]);
+
         public Button SendButton => 
-            GetElement(content => (Button)((Grid)((Grid)content).Children[0]).Children[1]);
+            GetElement(tabItem => (Button)((Grid)((Grid)tabItem.Content).Children[0]).Children[1]);
 
         public TextBox FromTextBox => 
-            GetElement(content => (TextBox)((StackPanel)((Grid)((Grid)content).Children[0]).Children[0]).Children[0]);
+            GetElement(tabItem => (TextBox)((StackPanel)((Grid)((Grid)tabItem.Content).Children[0]).Children[0]).Children[0]);
 
         public TextBox ToTextBox =>
-            GetElement(content => (TextBox)((StackPanel)((Grid)((Grid)content).Children[0]).Children[0]).Children[1]);
+            GetElement(tabItem => (TextBox)((StackPanel)((Grid)((Grid)tabItem.Content).Children[0]).Children[0]).Children[1]);
 
         public TextBox SubjectTextBox => 
-            GetElement(content => (TextBox)((StackPanel)((Grid)((Grid)content).Children[0]).Children[0]).Children[2]);
+            GetElement(tabItem => (TextBox)((StackPanel)((Grid)((Grid)tabItem.Content).Children[0]).Children[0]).Children[2]);
                 
-        private T GetElement<T>(Func<object, T> getFunc)
+        private T GetElement<T>(Func<TabItem, T> getFunc)
         {
             try
             {
-                return getFunc(TabItem.Content);
+                return getFunc(TabItem);
             }
             catch (Exception)
             {
@@ -45,9 +49,11 @@ namespace MailLab.Elements
 
         public object Clone()
         {
-            var mailTab = XamlWriter.Save(TabItem);
-            XmlReader xmlMailTab = XmlReader.Create(new StringReader(mailTab));
-            return XamlReader.Load(xmlMailTab);
+            var strMailTab = XamlWriter.Save(TabItem);
+            XmlReader xmlMailTab = XmlReader.Create(new StringReader(strMailTab));
+            var tabItem = (TabItem)XamlReader.Load(xmlMailTab);
+
+            return new MailTab(tabItem);
         }
     }
 }
