@@ -21,18 +21,35 @@ namespace MailLab
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MailTab OriginalMailTab;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            OriginalMailTab = GetOriginalMailtab();
         }
+
+        private MailTab GetOriginalMailtab()
+        {
+            var tab = firstTab;
+            CloseTabs();
+            return new MailTab(tab);
+        }
+
+        private void CloseTabs() => mailTabs.Items.Clear();
 
         private void NewEmail_Click(object sender, RoutedEventArgs e)
         {
-            var newMailTab = new MailTab((TabItem)new MailTab(firstTab).Clone());
+            var newMailTab = new MailTab((TabItem)OriginalMailTab.Clone());
             newMailTab.TabItem.Header = "New Email";
-            newMailTab.MakeVisible();
 
             mailTabs.Items.Add(newMailTab.TabItem);
+        }
+
+        private void CloseAll_Click(object sender, RoutedEventArgs e)
+        {
+            CloseTabs();
         }
     }
 }

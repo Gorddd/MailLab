@@ -43,12 +43,6 @@ namespace MailLab.Elements
             }
         }
 
-        public void MakeVisible()
-        {
-            TabItem.Visibility = System.Windows.Visibility.Visible;
-            GetElement(content => (Grid)content).Visibility = System.Windows.Visibility.Visible; //Make first grid visible
-        }
-
         public object Clone()
         {
             var mailTab = XamlWriter.Save(TabItem);
