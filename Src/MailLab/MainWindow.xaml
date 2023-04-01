@@ -6,7 +6,7 @@
         xmlns:retroUi="clr-namespace:RetroUI;assembly=RetroUI"
         xmlns:local="clr-namespace:MailLab"
         mc:Ignorable="d"
-        Title="MailLab" Height="450" Width="800">
+        Title="MailLab" Height="450" Width="800" MinWidth="668">
     <Window.Resources>
         
     </Window.Resources>
@@ -35,9 +35,9 @@
         
         <Grid Grid.Row="1" Background="AliceBlue">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.35*"></ColumnDefinition>
+                <ColumnDefinition MinWidth="150" Width="0.35*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition MinWidth="500"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
@@ -58,7 +58,7 @@
 
             <!--right tabs-->
             <TabControl Grid.Column="2">
-                <Grid>
+                <Grid Name="mailTabContent">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="54"></RowDefinition>
                         <RowDefinition></RowDefinition>

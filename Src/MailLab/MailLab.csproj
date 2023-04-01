@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="RetroUI">
       <HintPath>..\RetroUI.dll</HintPath>
     </Reference>
