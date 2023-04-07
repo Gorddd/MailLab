@@ -6,7 +6,7 @@
         xmlns:retroUi="clr-namespace:RetroUI;assembly=RetroUI"
         xmlns:local="clr-namespace:MailLab" xmlns:elements="clr-namespace:MailLab.Elements"
         mc:Ignorable="d"
-        Title="MailLab" Height="450" Width="800" MinWidth="668">
+        Title="MailLab" Height="550" Width="800" MinWidth="668" MinHeight="500">
     <Window.Resources>
 
     </Window.Resources>
@@ -94,9 +94,40 @@
                             <MenuItem Header="Close" Click="CloseSpecificTab_Click"></MenuItem>
                         </ContextMenu>
                     </TabItem.ContextMenu>
-                    <StackPanel>
-                        <TextBox Margin="100"></TextBox>
-                    </StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0" Grid.Row="0">
+                            <Label>Email</Label>
+                            <TextBox Margin="15 0 15 0"></TextBox>
+                            <Label>Password</Label>
+                            <PasswordBox Margin="15 0 15 0"></PasswordBox>
+                            <Button Margin="70 10 70 0" retroUi:Alt.Background="#FF064A06">Sign in</Button>
+                            <Button Margin="70 10 70 0" Background="LightBlue" retroUi:Alt.Background="DarkCyan">Save config</Button>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="0">
+                            <Label>SMTP server</Label>
+                            <TextBox Margin="15 0 15 0"></TextBox>
+                            <Label>SMTP port</Label>
+                            <TextBox Margin="15 0 15 0"></TextBox>
+                            <Label>IMAP server</Label>
+                            <TextBox Margin="15 0 15 0"></TextBox>
+                            <Label>IMAP port</Label>
+                            <TextBox Margin="15 0 15 0"></TextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                            <ListBox>
+                                
+                            </ListBox>
+                        </StackPanel>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </Grid>

@@ -40,7 +40,6 @@ namespace MailLab
 
         private void NewEmail_Click(object sender, RoutedEventArgs e)
         {
-
             mailTabsHelper.MakeNewTab(tab =>
             {
                 tab.TabItem.Header = $"{mailTabsHelper.CreatedTabsNum} New Email";
