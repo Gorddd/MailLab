@@ -22,7 +22,7 @@
             </MenuItem>
             <MenuItem Header="Settings">
                 <MenuItem Header="Auth">
-                    <MenuItem Header="Sign in"></MenuItem>
+                    <MenuItem Header="Sign in" Click="NewAuth_Click"></MenuItem>
                     <MenuItem Header="Sign out"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Cache">
@@ -56,8 +56,8 @@
             </TabControl>
 
             <!--right tabs-->
-            <TabControl Name="mailTabs" Grid.Column="2">
-                <TabItem Name="firstTab">
+            <TabControl Name="tabs" Grid.Column="2">
+                <TabItem Name="firstTab" Header="Email">
                     <TabItem.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Close" Click="CloseSpecificTab_Click"></MenuItem>
@@ -83,10 +83,20 @@
                         </Grid>
 
                         <!--mail content-->
-                        <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+                        <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto">
 
                         </TextBox>
                     </Grid>
+                </TabItem>
+                <TabItem Header="Auth">
+                    <TabItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Close" Click="CloseSpecificTab_Click"></MenuItem>
+                        </ContextMenu>
+                    </TabItem.ContextMenu>
+                    <StackPanel>
+                        <TextBox Margin="100"></TextBox>
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </Grid>
