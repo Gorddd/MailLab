@@ -24,7 +24,7 @@ namespace MailLab.Elements
             }
             catch (Exception)
             {
-                throw new ArgumentException("Error in GetElement function. It seems that tabItem from ctor is not MailTab");
+                throw new ArgumentException("Error in GetElement function. It seems that tabItem from ctor is not your tab");
             }
         }
 

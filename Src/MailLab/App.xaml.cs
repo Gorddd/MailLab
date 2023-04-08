@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ViewModel;
 
 namespace MailLab
 {
@@ -26,7 +27,7 @@ namespace MailLab
             //builder.ConfigureServices((context, services) =>
             //{
             //    string connectionString = context.Configuration.GetConnectionString("DefaultConnection") ?? 
-            //        throw new ArgumentNullException("There is no any configuration");
+            //        throw new ArgumentNullException("There is no configuration");
 
             //    services.AddSingleton(new DbContextOptionsBuilder().UseSqlite(connectionString).Options);
             //});
@@ -34,6 +35,7 @@ namespace MailLab
             host = builder.ConfigureServices(services =>
             {
                 services.AddSingleton<MainWindow>();
+                services.AddTransient<ConfigViewModel>();
             })
             .Build();
         }

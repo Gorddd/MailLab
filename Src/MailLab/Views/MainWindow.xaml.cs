@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModel;
 
 namespace MailLab
 {
@@ -24,61 +25,32 @@ namespace MailLab
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TabHelper<MailTab> mailTabsHelper;
-        private TabHelper<AuthTab> authTabsHelper;
+        private TabViewHelper tabViewHelper;
 
-        public MainWindow()
+        public ConfigViewModel ConfigViewModel { get; }
+
+        public MainWindow(ConfigViewModel configViewModel)
         {
             InitializeComponent();
 
-            mailTabsHelper = new TabHelper<MailTab>(tabs, new MailTab((TabItem)tabs.Items[0]));
-            authTabsHelper = new TabHelper<AuthTab>(tabs, new AuthTab((TabItem)tabs.Items[1]));
+            tabViewHelper = new TabViewHelper(tabs);
 
-            mailTabsHelper.CloseTabs("Email");
-            authTabsHelper.CloseTabs("Auth");
+            ConfigViewModel = configViewModel;
         }
 
         private void NewEmail_Click(object sender, RoutedEventArgs e)
         {
-            mailTabsHelper.MakeNewTab(tab =>
-            {
-                tab.TabItem.Header = $"{mailTabsHelper.CreatedTabsNum} New Email";
-                tab.CloseTabMenuItem.Click += CloseSpecificTab_Click;
-            });
+            tabViewHelper.NewEmailTab();
         }
 
         private void NewAuth_Click(object sender, RoutedEventArgs e)
         {
-            Func<TabItem, bool> isAuthTab = tab => tab.Header.ToString() == "Auth";
-
-            var hasAuthTab = tabs.Items.Cast<TabItem>().Any(isAuthTab);
-            if (hasAuthTab)
-            {
-                tabs.SelectedItem = tabs.Items.Cast<TabItem>().Single(isAuthTab);
-                return;
-            }
-
-            authTabsHelper.MakeNewTab(tab =>
-            {
-                tab.TabItem.Header = "Auth";
-                tab.CloseTabMenuItem.Click += CloseSpecificTab_Click;
-            });
+            tabViewHelper.NewAuthTab(ConfigViewModel);
         }
 
         private void CloseAll_Click(object sender, RoutedEventArgs e)
         {
-            mailTabsHelper.CloseTabs("Email");
-            mailTabsHelper.CloseTabs("Auth");
-        }
-
-        private void CloseSpecificTab_Click(object sender, RoutedEventArgs e)
-        {
-            var tabHeader = ((TabItem)((ContextMenu)((MenuItem)e.Source).Parent).PlacementTarget).Header.ToString();
-            if (tabHeader != null)
-            {
-                mailTabsHelper.CloseSpecificTab(tabHeader);
-                authTabsHelper.CloseSpecificTab(tabHeader);
-            }
+            tabViewHelper.CloseAllTabs();
         }
     }
 }

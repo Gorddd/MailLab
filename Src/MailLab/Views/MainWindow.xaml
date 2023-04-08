@@ -60,7 +60,7 @@
                 <TabItem Name="firstTab" Header="Email">
                     <TabItem.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Close" Click="CloseSpecificTab_Click"></MenuItem>
+                            <MenuItem Header="Close"></MenuItem>
                         </ContextMenu>
                     </TabItem.ContextMenu>
                     <Grid>
@@ -91,7 +91,7 @@
                 <TabItem Header="Auth">
                     <TabItem.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Close" Click="CloseSpecificTab_Click"></MenuItem>
+                            <MenuItem Header="Close"></MenuItem>
                         </ContextMenu>
                     </TabItem.ContextMenu>
 
@@ -123,9 +123,9 @@
                             <TextBox Margin="15 0 15 0"></TextBox>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
-                            <ListBox>
+                            <DataGrid>
                                 
-                            </ListBox>
+                            </DataGrid>
                         </StackPanel>
                     </Grid>
                 </TabItem>
