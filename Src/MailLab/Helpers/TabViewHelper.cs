@@ -58,6 +58,15 @@ namespace MailLab.Helpers
                 tab.SmtpPortTextBox.SetBinding(TextBox.TextProperty, new Binding("SelectedItem.SmtpPort") { Source = tab.ConfigsDataGrid });
                 tab.ImapServerTextBox.SetBinding(TextBox.TextProperty, new Binding("SelectedItem.ImapServer") { Source = tab.ConfigsDataGrid });
                 tab.ImapPortTextBox.SetBinding(TextBox.TextProperty, new Binding("SelectedItem.ImapPort") { Source = tab.ConfigsDataGrid });
+                tab.ConfigsDataGrid.SelectionChanged += (s, e) =>
+                {
+                    configViewModel.SelectedConfig = tab.ConfigsDataGrid.SelectedItem as ConfigDto ?? new ConfigDto();
+                    configViewModel.Password = tab.PasswordTextBox.Password;
+                };
+                tab.PasswordTextBox.PasswordChanged += (s, e) => configViewModel.Password = tab.PasswordTextBox.Password;
+                tab.SaveConfigButton.Click += (s, e) => MessageBox.Show(configViewModel.SelectedConfig.Email + configViewModel.Password);
+                configViewModel.Configs.Add(new ConfigDto());
+                tab.ConfigsDataGrid.SelectedItem = configViewModel.Configs.Last();
             });
         }
 

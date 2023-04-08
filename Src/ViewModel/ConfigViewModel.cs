@@ -13,9 +13,9 @@ namespace ViewModel
 {
     public class ConfigViewModel : INotifyPropertyChanged
     {
-        private ConfigDto selectedConfig;
-
         public ObservableCollection<ConfigDto> Configs { get; set; }
+
+        private ConfigDto selectedConfig = new();
         public ConfigDto SelectedConfig
         {
             get => selectedConfig;
@@ -26,12 +26,22 @@ namespace ViewModel
             }
         }
 
+        private string password;
+        public string Password {
+            get => password; 
+            set
+            {
+                password = value;
+                OnPropertyChagned(nameof(Password));
+            }
+        }
+
         public ConfigViewModel()
         {
             Configs = new ObservableCollection<ConfigDto>
             {
-                new ConfigDto { Id = 1, Email = "fuck@mail.ru", ImapPort = 1, ImapServer = "serv", SmtpPort = 2, SmtpServer = "fu" },
-                new ConfigDto { Id = 2, Email = "new@gmail.com", ImapPort = 2, ImapServer = "mapserv", SmtpPort = 3, SmtpServer = "shit" },
+                new ConfigDto { Email = "fuck@mail.ru", ImapPort = 1, ImapServer = "serv", SmtpPort = 2, SmtpServer = "fu" },
+                new ConfigDto { Email = "new@gmail.com", ImapPort = 2, ImapServer = "mapserv", SmtpPort = 3, SmtpServer = "shit" },
             };
         }
 
