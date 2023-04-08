@@ -43,9 +43,9 @@ namespace MailLab
             tabViewHelper.NewEmailTab();
         }
 
-        private void NewAuth_Click(object sender, RoutedEventArgs e)
+        private async void NewAuth_ClickAsync(object sender, RoutedEventArgs e)
         {
-            tabViewHelper.NewAuthTab(ConfigViewModel);
+            await tabViewHelper.NewAuthTab(ConfigViewModel);
         }
 
         private void CloseAll_Click(object sender, RoutedEventArgs e)

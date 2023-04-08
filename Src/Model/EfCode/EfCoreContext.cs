@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Model.EfCode
 {
-    //public class EfCoreContext : DbContext
-    //{
-    //    public DbSet<Config> Configs { get; set; }
+    public class EfCoreContext : DbContext
+    {
+        public DbSet<Config> Configs { get; set; }
 
-    //    public EfCoreContext(DbContextOptions<EfCoreContext> options) : base(options) { }
-    //}
+        public EfCoreContext(DbContextOptions<EfCoreContext> options) : base(options) { Database.EnsureCreated(); }
+    }
 }

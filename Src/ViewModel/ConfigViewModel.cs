@@ -1,4 +1,5 @@
 ﻿using Model.Entities;
+using Model.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +14,17 @@ namespace ViewModel
 {
     public class ConfigViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<ConfigDto> Configs { get; set; }
+        public ObservableCollection<ConfigDto> Configs { get; set; } = null!;
 
         private ConfigDto selectedConfig = new();
+
+        private IConfigService configService;
+
+        public ConfigViewModel(IConfigService configService)
+        {
+            this.configService = configService;
+        }
+
         public ConfigDto SelectedConfig
         {
             get => selectedConfig;
@@ -26,7 +35,7 @@ namespace ViewModel
             }
         }
 
-        private string password;
+        private string password = string.Empty;
         public string Password {
             get => password; 
             set
@@ -36,21 +45,17 @@ namespace ViewModel
             }
         }
 
-        public ConfigViewModel()
-        {
-            Configs = new ObservableCollection<ConfigDto>
-            {
-                new ConfigDto { Email = "fuck@mail.ru", ImapPort = 1, ImapServer = "serv", SmtpPort = 2, SmtpServer = "fu" },
-                new ConfigDto { Email = "new@gmail.com", ImapPort = 2, ImapServer = "mapserv", SmtpPort = 3, SmtpServer = "shit" },
-            };
-        }
-
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void OnPropertyChagned(string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public async Task BuildCollection()
+        {
+            if (Configs == null)
+                Configs = new ObservableCollection<ConfigDto>(await configService.GetAllAsync());
         }
     }
 }

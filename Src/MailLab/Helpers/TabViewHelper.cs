@@ -40,7 +40,7 @@ namespace MailLab.Helpers
             });
         }
 
-        public void NewAuthTab(ConfigViewModel configViewModel)
+        public async Task NewAuthTab(ConfigViewModel configViewModel)
         {
             if (TryGetAuthTab(out TabItem authTab))
             {
@@ -48,6 +48,7 @@ namespace MailLab.Helpers
                 return;
             }
 
+            await configViewModel.BuildCollection();
             authTabsHelper.MakeNewTab(tab =>
             {
                 tab.TabItem.Header = "Auth";

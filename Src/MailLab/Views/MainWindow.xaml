@@ -22,7 +22,7 @@
             </MenuItem>
             <MenuItem Header="Settings">
                 <MenuItem Header="Auth">
-                    <MenuItem Header="Sign in" Click="NewAuth_Click"></MenuItem>
+                    <MenuItem Header="Sign in" Click="NewAuth_ClickAsync"></MenuItem>
                     <MenuItem Header="Sign out"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Cache">

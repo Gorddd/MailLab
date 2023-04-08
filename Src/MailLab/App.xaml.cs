@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Model.EfCode;
+using Model.Services;
+using Model.Services.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,25 +27,30 @@ namespace MailLab
         {
             var builder = Host.CreateDefaultBuilder();
 
-            //builder.ConfigureServices((context, services) =>
-            //{
-            //    string connectionString = context.Configuration.GetConnectionString("DefaultConnection") ?? 
-            //        throw new ArgumentNullException("There is no configuration");
+            builder.ConfigureServices((context, services) =>
+            {
+                string connectionString = context.Configuration.GetConnectionString("DefaultConnection") ??
+                    throw new ArgumentNullException("There is no configuration");
 
-            //    services.AddSingleton(new DbContextOptionsBuilder().UseSqlite(connectionString).Options);
-            //});
+                services.AddDbContext<EfCoreContext>(options => options.UseSqlite(connectionString));
+            });
 
             host = builder.ConfigureServices(services =>
             {
                 services.AddSingleton<MainWindow>();
+                services.AddTransient<MigrateService>();
+                services.AddTransient<IConfigService, ConfigService>();
                 services.AddTransient<ConfigViewModel>();
             })
             .Build();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             host.Start();
+
+            var migrateService = host.Services.GetRequiredService<MigrateService>();
+            await migrateService.MigrateAsync();
 
             MainWindow = host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
