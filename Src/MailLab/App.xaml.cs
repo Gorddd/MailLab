@@ -12,7 +12,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using ViewModel;
+using ViewModel.ViewModels;
 
 namespace MailLab
 {
@@ -38,19 +38,15 @@ namespace MailLab
             host = builder.ConfigureServices(services =>
             {
                 services.AddSingleton<MainWindow>();
-                services.AddTransient<MigrateService>();
                 services.AddTransient<IConfigService, ConfigService>();
                 services.AddTransient<ConfigViewModel>();
             })
             .Build();
         }
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             host.Start();
-
-            var migrateService = host.Services.GetRequiredService<MigrateService>();
-            await migrateService.MigrateAsync();
 
             MainWindow = host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();

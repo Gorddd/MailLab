@@ -27,6 +27,9 @@ namespace MailLab.Elements
         public Button SaveConfigButton =>
             GetElement(tabItem => (Button)((StackPanel)((Grid)tabItem.Content).Children[0]).Children[5]);
 
+        public Button RemoveButton =>
+            GetElement(tabItem => (Button)((StackPanel)((Grid)tabItem.Content).Children[0]).Children[6]);
+
         public TextBox SmtpServerTextBox =>
             GetElement(tabItem => (TextBox)((StackPanel)((Grid)tabItem.Content).Children[1]).Children[1]);
 

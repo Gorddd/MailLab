@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using ViewModel;
 using ViewModel.Dtos;
+using ViewModel.ViewModels;
 
 namespace MailLab.Helpers
 {
@@ -53,6 +54,8 @@ namespace MailLab.Helpers
             {
                 tab.TabItem.Header = "Auth";
                 tab.CloseTabMenuItem.Click += CloseSpecificTab;
+                tab.SaveConfigButton.Click += async (s, e) => await configViewModel.AddUpdateConfig();
+                tab.RemoveButton.Click += async (s, e) => await configViewModel.RemoveConfig();
                 tab.ConfigsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Configs") { Source = configViewModel });
                 tab.EmailTextBox.SetBinding(TextBox.TextProperty, new Binding("SelectedItem.Email") { Source = tab.ConfigsDataGrid });
                 tab.SmtpServerTextBox.SetBinding(TextBox.TextProperty, new Binding("SelectedItem.SmtpServer") { Source = tab.ConfigsDataGrid });
@@ -65,7 +68,6 @@ namespace MailLab.Helpers
                     configViewModel.Password = tab.PasswordTextBox.Password;
                 };
                 tab.PasswordTextBox.PasswordChanged += (s, e) => configViewModel.Password = tab.PasswordTextBox.Password;
-                tab.SaveConfigButton.Click += (s, e) => MessageBox.Show(configViewModel.SelectedConfig.Email + configViewModel.Password);
                 configViewModel.Configs.Add(new ConfigDto());
                 tab.ConfigsDataGrid.SelectedItem = configViewModel.Configs.Last();
             });

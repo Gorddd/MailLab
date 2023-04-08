@@ -111,6 +111,7 @@
                             <PasswordBox Margin="15 0 15 0"></PasswordBox>
                             <Button Margin="70 10 70 0" retroUi:Alt.Background="#FF064A06">Sign in</Button>
                             <Button Margin="70 10 70 0" Background="LightBlue" retroUi:Alt.Background="DarkCyan">Save config</Button>
+                            <Button Margin="70 10 70 0" Background="LightBlue" retroUi:Alt.Background="DarkCyan">Remove config</Button>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Grid.Row="0">
                             <Label>SMTP server</Label>
