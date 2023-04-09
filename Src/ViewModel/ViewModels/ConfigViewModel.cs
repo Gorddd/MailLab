@@ -77,7 +77,7 @@ namespace ViewModel.ViewModels
 
         public async Task SignIn()
         {
-            await configService.SignIn(selectedConfig);
+            await configService.SignIn(selectedConfig, password);
         }
     }
 }

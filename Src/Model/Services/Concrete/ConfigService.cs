@@ -56,8 +56,12 @@ namespace Model.Services.Concrete
             return await context.Configs.Select(c => c.ToDto()).ToListAsync();
         }
 
-        public async Task SignIn(ConfigDto singInConfig)
+        public async Task SignIn(ConfigDto singInConfig, string password)
         {
+            var loggedInConfig = await context.Configs.FirstOrDefaultAsync(c => c.IsCurrent);
+            if (loggedInConfig != null)
+                loggedInConfig.IsCurrent = false;
+
             var dbConfig = await context.Configs.FirstOrDefaultAsync(c => c.Email == singInConfig.Email);
             if (dbConfig != null)
             {
@@ -65,6 +69,13 @@ namespace Model.Services.Concrete
                 configToUpdate.Id = dbConfig.Id;
                 configToUpdate.IsCurrent = true;
                 context.Configs.Update(configToUpdate);
+            }
+            else
+            {
+                var configToAdd = singInConfig.ToConfig();
+                configToAdd.IsCurrent = true;
+                configToAdd.Password = password;
+                context.Configs.Add(configToAdd);
             }
 
             await context.SaveChangesAsync();

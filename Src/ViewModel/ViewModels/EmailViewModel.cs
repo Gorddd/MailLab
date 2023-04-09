@@ -81,5 +81,38 @@ namespace ViewModel.ViewModels
                     }));
             }
         }
+
+        private SendEmailCommand? sendEmailCommand;
+        public SendEmailCommand SendEmailCommand
+        {
+            get
+            {
+                return sendEmailCommand ??
+                    (sendEmailCommand = new SendEmailCommand(async obj =>
+                    {
+                        if (obj is ViewEmailDto email)
+                        {
+                            try
+                            {
+                                email.IsSent = true;
+                                await EmailService.SendEmail(email.ToEmailDto());
+                                SentEmails.Add(email);
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show($"You've got an error: {e.Message}", "Error");
+                            }
+                        }
+                    },
+                    obj =>
+                    {
+                        if (obj is EmailDto email) {
+                            return EmailService.IsLoggedIn() && !string.IsNullOrEmpty(email.From) && !string.IsNullOrEmpty(email.To);
+                        }
+                        else
+                            return false;
+                    }));
+            }
+        }
     }
 }

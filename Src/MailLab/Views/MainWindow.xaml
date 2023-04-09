@@ -86,7 +86,7 @@
                             <MenuItem Header="Close"></MenuItem>
                         </ContextMenu>
                     </TabItem.ContextMenu>
-                    <Grid DataContext="{Binding EmailViewModel.SelectedEmail}">
+                    <Grid DataContext="{Binding EmailViewModel}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="57"></RowDefinition>
                             <RowDefinition></RowDefinition>
@@ -97,16 +97,16 @@
                                 <ColumnDefinition Width="0.25*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <TextBox Text="{Binding From, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <TextBox Text="{Binding To, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <TextBox Margin="0 3 0 0" Text="{Binding Subject, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Text="{Binding SelectedEmail.From, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Text="{Binding SelectedEmail.To, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Margin="0 3 0 0" Text="{Binding SelectedEmail.Subject, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </StackPanel>
                             <!--send button (visible only if mail content is a new email)-->
-                            <Button Name="sendButton" Grid.Column="1" Margin="4" Background="LightBlue" retroUi:Alt.Background="DarkCyan" Visibility="{Binding SendPosibility}" Content="Send"/>
+                            <Button Name="sendButton" Grid.Column="1" Margin="4" Background="LightBlue" retroUi:Alt.Background="DarkCyan" Visibility="{Binding SelectedEmail.SendPosibility}" Command="{Binding SendEmailCommand}" CommandParameter="{Binding SelectedEmail}" Content="Send"/>
                         </Grid>
 
                         <!--mail content-->
-                        <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" Text="{Binding SelectedEmail.Body, UpdateSourceTrigger=PropertyChanged}">
                             
                         </TextBox>
                     </Grid>

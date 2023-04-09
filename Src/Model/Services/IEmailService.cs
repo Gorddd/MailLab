@@ -10,6 +10,7 @@ namespace Model.Services
     public interface IEmailService
     {
         public IEnumerable<EmailDto> GetAll();
-        public Task SendEmail();
+        public Task SendEmail(EmailDto emailDto);
+        public bool IsLoggedIn();
     }
 }
