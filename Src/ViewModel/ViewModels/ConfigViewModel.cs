@@ -56,13 +56,17 @@ namespace ViewModel.ViewModels
         public async Task AddUpdateConfig()
         {
             if (!string.IsNullOrEmpty(selectedConfig.Email))
+            {
                 await configService.AddUpdateConfigAsync(SelectedConfig, Password);
+                if (!Configs.Any(c => c.Email == selectedConfig.Email))
+                    Configs.Add(selectedConfig);
+            }
         }
 
         public async Task RemoveConfig()
         {
-            Configs.Remove(SelectedConfig);
             await configService.RemoveConfigAsync(selectedConfig);
+            Configs.Remove(selectedConfig);
         }
 
         public async Task BuildCollection()
