@@ -38,8 +38,9 @@ namespace MailLab
             host = builder.ConfigureServices(services =>
             {
                 services.AddSingleton<MainWindow>();
+                services.AddTransient<ISendEmailService, SendEmailService>();
                 services.AddTransient<IConfigService, ConfigService>();
-                services.AddTransient<IEmailService, EmailService>();
+                services.AddSingleton<IReceivingEmailService, ReceivingEmailService>();
                 services.AddTransient<ConfigViewModel>();
                 services.AddTransient<EmailViewModel>();
             })

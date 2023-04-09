@@ -27,9 +27,9 @@ namespace Model.Helpers
             return new EmailDto
             {
                 Subject = email.Subject,
-                Body = email.Body,
-                From = email.From,
-                To = email.To,
+                Body = email.Body!,
+                From = email.From!,
+                To = email.To!,
                 IsSent = email.IsSent
             };
         }

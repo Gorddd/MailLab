@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Model.Services.Concrete
 {
-    public class EmailService : IEmailService
+    public class SendEmailService : ISendEmailService
     {
         private EfCoreContext context;
 
-        public EmailService(EfCoreContext context)
+        public SendEmailService(EfCoreContext context)
         {
             this.context = context;
         }

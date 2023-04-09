@@ -14,4 +14,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="S22.Imap">
+      <HintPath>..\S22.Imap.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

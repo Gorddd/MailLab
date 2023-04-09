@@ -18,10 +18,12 @@ namespace ViewModel.ViewModels
         public ObservableCollection<ConfigDto> Configs { get; set; } = null!;
 
         private IConfigService configService;
+        private IReceivingEmailService receivingEmailService;
 
-        public ConfigViewModel(IConfigService configService)
+        public ConfigViewModel(IConfigService configService, IReceivingEmailService receivingEmailService)
         {
             this.configService = configService;
+            this.receivingEmailService = receivingEmailService;
         }
 
         private ConfigDto selectedConfig = new();
@@ -78,6 +80,7 @@ namespace ViewModel.ViewModels
         public async Task SignIn()
         {
             await configService.SignIn(selectedConfig, password);
+            receivingEmailService.StartUpdateReceiving();
         }
     }
 }

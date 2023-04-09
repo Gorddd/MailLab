@@ -30,14 +30,14 @@ namespace MailLab
         public ConfigViewModel ConfigViewModel { get; }
         public EmailViewModel EmailViewModel { get; }
 
-        public MainWindow(ConfigViewModel configViewModel, EmailViewModel emailViewModel)
+        public MainWindow(EmailViewModel emailViewModel, ConfigViewModel configViewModel)
         {
             InitializeComponent();
 
             tabViewHelper = new TabViewHelper(tabs);
 
-            ConfigViewModel = configViewModel;
             EmailViewModel = emailViewModel;
+            ConfigViewModel = configViewModel;
 
             DataContext = this;
         }

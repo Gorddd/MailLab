@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Model.Services
 {
-    public interface IEmailService
+    public interface IReceivingEmailService
     {
-        public IEnumerable<EmailDto> GetAll();
-        public Task SendEmail(EmailDto emailDto);
-        public bool IsLoggedIn();
+        public Action<EmailDto> ReceivedEmailAction { get; set; }
+        public void StartUpdateReceiving();
     }
 }

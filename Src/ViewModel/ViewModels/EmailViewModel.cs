@@ -13,6 +13,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using System.Xml.Linq;
 using ViewModel.Dtos;
 using ViewModel.Helpers;
@@ -21,12 +22,17 @@ namespace ViewModel.ViewModels
 {
     public class EmailViewModel : INotifyPropertyChanged
     {
-        public IEmailService EmailService { get; }
-        public EmailViewModel(IEmailService emailService)
+        public ISendEmailService EmailService { get; }
+        public IReceivingEmailService ReceivingEmailService { get; }
+        public EmailViewModel(ISendEmailService emailService, IReceivingEmailService receivingEmailService)
         {
             EmailService = emailService;
+            ReceivingEmailService = receivingEmailService;
 
             InitializeEmails();
+
+            ReceivingEmailService.ReceivedEmailAction = e => Application.Current.Dispatcher.Invoke(() => ReceivedEmails.Add(e.ToViewEmailDto()));
+            ReceivingEmailService.StartUpdateReceiving();
         }
 
         private void InitializeEmails()
@@ -105,7 +111,7 @@ namespace ViewModel.ViewModels
                         }
                     },
                     obj =>
-                    {
+                    {   //not working now
                         if (obj is EmailDto email) {
                             return EmailService.IsLoggedIn() && !string.IsNullOrEmpty(email.From) && !string.IsNullOrEmpty(email.To);
                         }

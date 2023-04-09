@@ -56,6 +56,7 @@ namespace MailLab.Helpers
                 tab.CloseTabMenuItem.Click += CloseSpecificTab;
                 tab.SaveConfigButton.Click += async (s, e) => await configViewModel.AddUpdateConfig();
                 tab.RemoveButton.Click += async (s, e) => await configViewModel.RemoveConfig();
+                tab.SingInButton.Click += async (s, e) => await configViewModel.SignIn();
                 tab.ConfigsDataGrid.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Configs") { Source = configViewModel });
                 tab.EmailTextBox.SetBinding(TextBox.TextProperty, new Binding("SelectedItem.Email") { Source = tab.ConfigsDataGrid });
                 tab.SmtpServerTextBox.SetBinding(TextBox.TextProperty, new Binding("SelectedItem.SmtpServer") { Source = tab.ConfigsDataGrid });

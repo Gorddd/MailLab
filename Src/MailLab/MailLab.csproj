@@ -19,6 +19,9 @@
 		<Reference Include="RetroUI">
 			<HintPath>..\RetroUI.dll</HintPath>
 		</Reference>
+		<Reference Include="S22.Imap">
+		  <HintPath>..\S22.Imap.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
