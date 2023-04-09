@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="File">
-                <MenuItem Header="New email" Click="NewEmail_Click"></MenuItem>
+                <MenuItem Header="New email" Command="{Binding EmailViewModel.NewDraftCommand}"></MenuItem>
                 <MenuItem Header="Close all" Click="CloseAll_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Settings">
@@ -44,13 +44,36 @@
             <!--left tabs-->
             <TabControl Grid.Column="0">
                 <TabItem Header="Received" Grid.Column="0">
-                    <ListBox Background="White">
-
+                    <ListBox Background="White" ItemsSource="{Binding EmailViewModel.ReceivedEmails}" SelectedItem="{Binding EmailViewModel.SelectedEmail}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Subject}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </TabItem>
                 <TabItem Header="Sent" Grid.Column="1">
-                    <ListBox Background="White">
-
+                    <ListBox Background="White" ItemsSource="{Binding EmailViewModel.SentEmails}" SelectedItem="{Binding EmailViewModel.SelectedEmail}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Subject}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                <TabItem Header="Drafts" Grid.Column="1">
+                    <ListBox Background="White" ItemsSource="{Binding EmailViewModel.Drafts}" SelectedItem="{Binding EmailViewModel.SelectedEmail}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Subject}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </TabItem>
             </TabControl>
@@ -63,7 +86,7 @@
                             <MenuItem Header="Close"></MenuItem>
                         </ContextMenu>
                     </TabItem.ContextMenu>
-                    <Grid>
+                    <Grid DataContext="{Binding EmailViewModel.SelectedEmail}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="57"></RowDefinition>
                             <RowDefinition></RowDefinition>
@@ -74,17 +97,17 @@
                                 <ColumnDefinition Width="0.25*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <TextBox>from:</TextBox>
-                                <TextBox>to:</TextBox>
-                                <TextBox Margin="0 3 0 0"></TextBox>
+                                <TextBox Text="{Binding From, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Text="{Binding To, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Margin="0 3 0 0" Text="{Binding Subject, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </StackPanel>
                             <!--send button (visible only if mail content is a new email)-->
-                            <Button Name="sendButton" Grid.Column="1" Margin="4" Background="LightBlue" retroUi:Alt.Background="DarkCyan" Visibility="Visible" Content="Send"/>
+                            <Button Name="sendButton" Grid.Column="1" Margin="4" Background="LightBlue" retroUi:Alt.Background="DarkCyan" Visibility="{Binding SendPosibility}" Content="Send"/>
                         </Grid>
 
                         <!--mail content-->
-                        <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto">
-
+                        <TextBox Margin="0 3 0 0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}">
+                            
                         </TextBox>
                     </Grid>
                 </TabItem>

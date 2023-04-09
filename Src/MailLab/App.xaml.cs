@@ -39,7 +39,9 @@ namespace MailLab
             {
                 services.AddSingleton<MainWindow>();
                 services.AddTransient<IConfigService, ConfigService>();
+                services.AddTransient<IEmailService, EmailService>();
                 services.AddTransient<ConfigViewModel>();
+                services.AddTransient<EmailViewModel>();
             })
             .Build();
         }

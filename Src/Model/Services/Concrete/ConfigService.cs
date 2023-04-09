@@ -55,5 +55,19 @@ namespace Model.Services.Concrete
         {
             return await context.Configs.Select(c => c.ToDto()).ToListAsync();
         }
+
+        public async Task SignIn(ConfigDto singInConfig)
+        {
+            var dbConfig = await context.Configs.FirstOrDefaultAsync(c => c.Email == singInConfig.Email);
+            if (dbConfig != null)
+            {
+                var configToUpdate = singInConfig.ToConfig();
+                configToUpdate.Id = dbConfig.Id;
+                configToUpdate.IsCurrent = true;
+                context.Configs.Update(configToUpdate);
+            }
+
+            await context.SaveChangesAsync();
+        }
     }
 }

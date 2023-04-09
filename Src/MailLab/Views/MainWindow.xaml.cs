@@ -28,19 +28,18 @@ namespace MailLab
         private TabViewHelper tabViewHelper;
 
         public ConfigViewModel ConfigViewModel { get; }
+        public EmailViewModel EmailViewModel { get; }
 
-        public MainWindow(ConfigViewModel configViewModel)
+        public MainWindow(ConfigViewModel configViewModel, EmailViewModel emailViewModel)
         {
             InitializeComponent();
 
             tabViewHelper = new TabViewHelper(tabs);
 
             ConfigViewModel = configViewModel;
-        }
+            EmailViewModel = emailViewModel;
 
-        private void NewEmail_Click(object sender, RoutedEventArgs e)
-        {
-            tabViewHelper.NewEmailTab();
+            DataContext = this;
         }
 
         private async void NewAuth_ClickAsync(object sender, RoutedEventArgs e)

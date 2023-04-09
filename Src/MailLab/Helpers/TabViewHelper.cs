@@ -28,7 +28,7 @@ namespace MailLab.Helpers
             mailTabsHelper = new TabHelper<MailTab>(tabs, new MailTab((TabItem)tabs.Items[0]));
             authTabsHelper = new TabHelper<AuthTab>(tabs, new AuthTab((TabItem)tabs.Items[1]));
 
-            mailTabsHelper.CloseTabs("Email");
+            //mailTabsHelper.CloseTabs("Email");
             authTabsHelper.CloseTabs("Auth");
         }
 

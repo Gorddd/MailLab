@@ -11,6 +11,7 @@ namespace Model.EfCode
     public class EfCoreContext : DbContext
     {
         public DbSet<Config> Configs { get; set; }
+        public DbSet<Email> Emails { get; set; }
 
         public EfCoreContext(DbContextOptions<EfCoreContext> options) : base(options) { Database.EnsureCreated(); }
     }

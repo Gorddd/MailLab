@@ -13,5 +13,6 @@ namespace Model.Services
         public Task AddUpdateConfigAsync(ConfigDto config, string password);
         public Task RemoveConfigAsync(ConfigDto config);
         public Task<IEnumerable<ConfigDto>> GetAllAsync();
+        public Task SignIn(ConfigDto singInConfig);
     }
 }

@@ -74,5 +74,10 @@ namespace ViewModel.ViewModels
             if (Configs == null)
                 Configs = new ObservableCollection<ConfigDto>(await configService.GetAllAsync());
         }
+
+        public async Task SignIn()
+        {
+            await configService.SignIn(selectedConfig);
+        }
     }
 }
