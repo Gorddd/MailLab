@@ -1,5 +1,5 @@
 # MailLab
 
 Retro email client
-![main](Screens/demoUI.jpg)
+![main](Screens/UI.jpg)
 In developing...
